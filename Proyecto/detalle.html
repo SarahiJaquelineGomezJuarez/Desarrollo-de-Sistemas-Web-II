@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>TiendaSara — Detalle</title>
+  <link href="assets/bootstrap-5.3.8-dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/css/style.css" rel="stylesheet">
+  <link rel="icon" href="assets/img/favicon.png">
+</head>
+<body class="bg-light">
+  <!-- HEADER reutilizado -->
+  <header class="border-bottom bg-white">
+    <nav class="navbar navbar-expand-lg navbar-light bg-white container">
+      <a class="navbar-brand d-flex align-items-center gap-2" href="index.html">
+        <img src="assets/img/logo-tienda.png" alt="Logo Tienda Sara" width="36" height="36">
+        <span class="fw-bold">TiendaSara</span>
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMain">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navMain">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="productos.html">Productos</a></li>
+          <li class="nav-item"><a class="nav-link" href="carrito.html">Carrito <span class="badge text-bg-primary" id="miniCount">0</span></a></li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+
+  <!-- CONTENIDO principal -->
+  <main class="container my-4" id="vista">
+  </main>
+
+  <footer class="bg-dark text-white text-center small py-4 mt-5">
+    © 2025 TiendaSara.
+  </footer>
+
+  <script src="assets/bootstrap-5.3.8-dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- SCRIPT: genera la vista del producto según su id -->
+  <script>
+    const CATALOGO = {
+      p1: { id:'p1', name:'Auriculares inalámbricos', price:899,  img:'assets/img/imagen-22-auriculares.jpg', marca:'NovaTech', cat:'electronicos', desc:'Audio inalámbrico todo el día.' },
+      p2: { id:'p2', name:'Batidora 500 W',           price:749.5,img:'assets/img/imagen-13-batidora.jpg',     marca:'CasaPlus', cat:'hogar',        desc:'Potente batidora para tu cocina.' },
+      p3: { id:'p3', name:'Playera algodón unisex',   price:199.9,img:'assets/img/imagen-14-playera.jpg',      marca:'Acme',     cat:'ropa',         desc:'Suave y cómoda, 100% algodón.' },
+      p4: { id:'p4', name:'Bloques construcción 1k',  price:649,  img:'assets/img/imagen-15-bloques.jpg',      marca:'Kids&Fun', cat:'juguetes',     desc:'Creatividad sin límites.' },
+      p5: { id:'p5', name:'Libro "SQL para todos"',   price:263.2,img:'assets/img/imagen-16-libro-sql.jpg',    marca:'LectorMx', cat:'libros',       desc:'Aprende SQL desde cero.' },
+    };
+
+    const $ = (s,ctx=document)=>ctx.querySelector(s);
+    function money(n){ return Number(n).toLocaleString('es-MX',{style:'currency',currency:'MXN'}); }
+
+    function updateMiniCount(){
+      const items = JSON.parse(localStorage.getItem('cartItems')||'[]');
+      const count = items.reduce((a,b)=>a + (b.qty||0), 0);
+      localStorage.setItem('cartCount', count);
+      const badge = document.getElementById('miniCount'); if (badge) badge.textContent = count;
+    }
+
+    function addToCart(data){
+      const items = JSON.parse(localStorage.getItem('cartItems')||'[]');
+      const idx = items.findIndex(x=>x.id===data.id);
+      if(idx>=0){ items[idx].qty += 1; } else { items.push({...data, qty:1}); }
+      localStorage.setItem('cartItems', JSON.stringify(items));
+      updateMiniCount();
+    }
+
+    // Obtener el id del producto desde la URL (?id=p1, p2, etc.)
+    const params = new URLSearchParams(location.search);
+    const id = params.get('id');
+    const prod = CATALOGO[id];
+    const vista = $('#vista');
+
+    if(!prod){
+      vista.innerHTML = `<div class="alert alert-warning">Producto no encontrado. <a href="productos.html" class="alert-link">Volver a productos</a>.</div>`;
+    } else {
+      vista.innerHTML = `
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb small">
+            <li class="breadcrumb-item"><a href="index.html">Inicio</a></li>
+            <li class="breadcrumb-item"><a href="productos.html">Productos</a></li>
+            <li class="breadcrumb-item active" aria-current="page">${prod.name}</li>
+          </ol>
+        </nav>
+
+        <div class="row g-4">
+          <div class="col-12 col-md-6">
+            <img src="${prod.img}" alt="${prod.name}" class="img-fluid rounded-4 shadow-sm">
+          </div>
+          <div class="col-12 col-md-6">
+            <h1 class="h4">${prod.name}</h1>
+            <div class="text-secondary small mb-2">Marca: ${prod.marca}</div>
+            <div class="h5 mb-3">${money(prod.price)}</div>
+            <p class="mb-3">${prod.desc}</p>
+            <div class="d-flex gap-2">
+              <button id="btnAdd" class="btn btn-primary">Agregar al carrito</button>
+              <a href="productos.html?cat=${prod.cat}" class="btn btn-outline-secondary">Ver más de ${prod.cat}</a>
+            </div>
+          </div>
+        </div>
+      `;
+      $('#btnAdd').addEventListener('click', ()=>{
+        addToCart({ id: prod.id, name: prod.name, price: prod.price, img: prod.img });
+        alert('Producto agregado al carrito');
+      });
+    }
+    updateMiniCount();
+  </script>
+</body>
+</html>

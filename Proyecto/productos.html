@@ -1,0 +1,507 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>TiendaSara — Productos</title>
+  <meta name="description" content="Explora la galería de productos de Tienda Sara por categoría, marca o precio.">
+
+  <!-- Bootstrap CSS local -->
+  <link href="assets/bootstrap-5.3.8-dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/css/style.css" rel="stylesheet">
+  <link rel="icon" href="assets/img/favicon.png">
+
+  <style>
+    .stars-sm{ font-size:.9rem; letter-spacing:.05em; color:#f6b500 }
+    .review-item{ border:1px solid #eee; border-radius:.75rem; padding:.75rem }
+    .review-item .stars{ color:#f59f00 }
+    .reviews-section .history .review-item + .review-item{ margin-top:.5rem }
+  </style>
+</head>
+
+<body class="bg-light">
+  <!-- Topbar (SOLO contenido, sin scripts dentro) -->
+  <div class="bg-dark text-white text-center py-1 small">
+    Envío gratis desde $899 MXN —
+    <a class="link-light text-decoration-underline" href="#" title="Ver políticas">Ver políticas</a>
+  </div>
+
+  <!-- HEADER -->
+  <header class="border-bottom bg-white">
+    <nav class="navbar navbar-expand-lg navbar-light bg-white container">
+      <a class="navbar-brand d-flex align-items-center gap-2" href="index.html">
+        <img src="assets/img/logo-tienda.png" alt="Logo Tienda Sara" width="36" height="36">
+        <span class="fw-bold">TiendaSara</span>
+      </a>
+
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMain" aria-controls="navMain" aria-expanded="false" aria-label="Abrir menú">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navMain">
+        <form class="d-flex mx-auto my-2 my-lg-0" role="search">
+          <input id="q" class="form-control me-2" type="search" placeholder="Buscar por nombre..." aria-label="Buscar">
+          <button class="btn btn-outline-primary" type="button" id="btnBuscar">
+            <span class="d-none d-lg-inline">Buscar</span>
+            <i class="bi bi-search d-lg-none"></i>
+          </button>
+        </form>
+
+        <ul class="navbar-nav ms-lg-3 align-items-lg-center">
+          <li class="nav-item"><a class="nav-link" href="index.html">Inicio</a></li>
+          <li class="nav-item"><a class="nav-link active" aria-current="page" href="productos.html">Productos</a></li>
+          <li class="nav-item">
+            <a class="nav-link" href="carrito.html">Carrito <span class="badge text-bg-primary" id="miniCount">0</span></a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+
+  <!-- CONTENIDO -->
+  <main class="container my-4">
+    <!-- Breadcrumb -->
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb small">
+        <li class="breadcrumb-item"><a href="index.html">Inicio</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Productos</li>
+      </ol>
+    </nav>
+
+    <div class="row g-4">
+      <!-- Filtros -->
+      <aside class="col-12 col-lg-3">
+        <div class="bg-white rounded-4 shadow-sm p-3">
+          <h6 class="mb-3">Filtros</h6>
+
+          <div class="mb-3">
+            <label class="form-label small">Categoría</label>
+            <select class="form-select form-select-sm" id="fCategoria">
+              <option value="">Todas</option>
+              <option value="electronicos">Electrónicos</option>
+              <option value="hogar">Hogar</option>
+              <option value="ropa">Ropa</option>
+              <option value="juguetes">Juguetes</option>
+              <option value="libros">Libros</option>
+            </select>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label small">Marca</label>
+            <select class="form-select form-select-sm" id="fMarca">
+              <option value="">Todas</option>
+              <option value="NovaTech">NovaTech</option>
+              <option value="CasaPlus">CasaPlus</option>
+              <option value="Acme">Acme</option>
+              <option value="Kids&Fun">Kids&Fun</option>
+              <option value="LectorMx">LectorMx</option>
+            </select>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label small">Precio máx. (MXN)</label>
+            <input type="number" min="0" step="1" id="fPrecio" class="form-control form-control-sm" placeholder="ej. 800">
+          </div>
+
+          <button id="btnLimpiar" class="btn btn-sm btn-outline-secondary w-100">Limpiar filtros</button>
+        </div>
+      </aside>
+
+      <!-- Listado -->
+      <section class="col-12 col-lg-9">
+        <div class="d-flex justify-content-between align-items-center mb-2">
+          <div class="small text-secondary" id="lblResultados">Mostrando todos</div>
+          <div class="d-flex align-items-center gap-2">
+            <label for="orden" class="small text-secondary m-0">Ordenar por:</label>
+            <select id="orden" class="form-select form-select-sm" style="width:auto">
+              <option value="relevancia">Relevancia</option>
+              <option value="precio-asc">Precio ↑</option>
+              <option value="precio-desc">Precio ↓</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Grid de productos -->
+        <div class="row g-3" id="grid">
+
+          <!-- Electrónicos -->
+          <div class="col-6 col-md-4" data-cat="electronicos" data-marca="NovaTech" data-precio="899" data-nombre="Auriculares inalámbricos">
+            <div class="card h-100 shadow-sm">
+              <img src="assets/img/imagen-12-auriculares.jpg" class="card-img-top" alt="Auriculares inalámbricos">
+              <div class="card-body d-flex flex-column">
+                <h6 class="card-title mb-1">Auriculares inalámbricos</h6>
+                <p class="text-secondary small mb-2">Marca: NovaTech</p>
+
+                <!-- Reseñas -->
+                <div class="reviews-section mb-2" data-id="p1" data-name="Auriculares inalámbricos">
+                  <div class="small text-secondary mb-1 review-average">Sin reseñas</div>
+                  <form class="review-inline-form vstack gap-1">
+                    <div class="d-flex align-items-center gap-1 small">
+                      <label>Valoración:</label>
+                      <select class="form-select form-select-sm rating-select" style="width:auto">
+                        <option value="5">★★★★★ (5)</option>
+                        <option value="4">★★★★ (4)</option>
+                        <option value="3">★★★ (3)</option>
+                        <option value="2">★★ (2)</option>
+                        <option value="1">★ (1)</option>
+                      </select>
+                    </div>
+                    <input type="text" class="form-control form-control-sm name-input" placeholder="Tu nombre">
+                    <textarea class="form-control form-control-sm comment-input" rows="2" placeholder="Escribe tu reseña..."></textarea>
+                    <button type="submit" class="btn btn-sm btn-outline-primary">Guardar reseña</button>
+                  </form>
+                  <button class="btn btn-link p-0 mt-1 small text-decoration-none ver-reseñas">Ver historial</button>
+                  <div class="history mt-2 small"></div>
+                </div>
+
+                <div class="d-flex justify-content-between align-items-center mt-auto">
+                  <strong>$899.00</strong>
+                  <button class="btn btn-sm btn-primary add"
+                          data-id="p1"
+                          data-name="Auriculares inalámbricos"
+                          data-price="899"
+                          data-img="assets/img/imagen-12-auriculares.jpg">Agregar</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Hogar -->
+          <div class="col-6 col-md-4" data-cat="hogar" data-marca="CasaPlus" data-precio="749.5" data-nombre="Batidora 500 W">
+            <div class="card h-100 shadow-sm">
+              <img src="assets/img/imagen-13-batidora.jpg" class="card-img-top" alt="Batidora 500 W">
+              <div class="card-body d-flex flex-column">
+                <h6 class="card-title mb-1">Batidora 500 W</h6>
+                <p class="text-secondary small mb-2">Marca: CasaPlus</p>
+
+                <div class="reviews-section mb-2" data-id="p2" data-name="Batidora 500 W">
+                  <div class="small text-secondary mb-1 review-average">Sin reseñas</div>
+                  <form class="review-inline-form vstack gap-1">
+                    <div class="d-flex align-items-center gap-1 small">
+                      <label>Valoración:</label>
+                      <select class="form-select form-select-sm rating-select" style="width:auto">
+                        <option value="5">★★★★★ (5)</option>
+                        <option value="4">★★★★ (4)</option>
+                        <option value="3">★★★ (3)</option>
+                        <option value="2">★★ (2)</option>
+                        <option value="1">★ (1)</option>
+                      </select>
+                    </div>
+                    <input type="text" class="form-control form-control-sm name-input" placeholder="Tu nombre">
+                    <textarea class="form-control form-control-sm comment-input" rows="2" placeholder="Escribe tu reseña..."></textarea>
+                    <button type="submit" class="btn btn-sm btn-outline-primary">Guardar reseña</button>
+                  </form>
+                  <button class="btn btn-link p-0 mt-1 small text-decoration-none ver-reseñas">Ver historial</button>
+                  <div class="history mt-2 small"></div>
+                </div>
+
+                <div class="d-flex justify-content-between align-items-center mt-auto">
+                  <strong>$749.50</strong>
+                  <button class="btn btn-sm btn-primary add"
+                          data-id="p2"
+                          data-name="Batidora 500 W"
+                          data-price="749.5"
+                          data-img="assets/img/imagen-13-batidora.jpg">Agregar</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Ropa -->
+          <div class="col-6 col-md-4" data-cat="ropa" data-marca="Acme" data-precio="199.9" data-nombre="Playera algodón unisex">
+            <div class="card h-100 shadow-sm">
+              <img src="assets/img/imagen-14-playera.jpg" class="card-img-top" alt="Playera algodón unisex">
+              <div class="card-body d-flex flex-column">
+                <h6 class="card-title mb-1">Playera algodón unisex</h6>
+                <p class="text-secondary small mb-2">Marca: Acme</p>
+
+                <div class="reviews-section mb-2" data-id="p3" data-name="Playera algodón unisex">
+                  <div class="small text-secondary mb-1 review-average">Sin reseñas</div>
+                  <form class="review-inline-form vstack gap-1">
+                    <div class="d-flex align-items-center gap-1 small">
+                      <label>Valoración:</label>
+                      <select class="form-select form-select-sm rating-select" style="width:auto">
+                        <option value="5">★★★★★ (5)</option>
+                        <option value="4">★★★★ (4)</option>
+                        <option value="3">★★★ (3)</option>
+                        <option value="2">★★ (2)</option>
+                        <option value="1">★ (1)</option>
+                      </select>
+                    </div>
+                    <input type="text" class="form-control form-control-sm name-input" placeholder="Tu nombre">
+                    <textarea class="form-control form-control-sm comment-input" rows="2" placeholder="Escribe tu reseña..."></textarea>
+                    <button type="submit" class="btn btn-sm btn-outline-primary">Guardar reseña</button>
+                  </form>
+                  <button class="btn btn-link p-0 mt-1 small text-decoration-none ver-reseñas">Ver historial</button>
+                  <div class="history mt-2 small"></div>
+                </div>
+
+                <div class="d-flex justify-content-between align-items-center mt-auto">
+                  <strong>$199.90</strong>
+                  <button class="btn btn-sm btn-primary add"
+                          data-id="p3"
+                          data-name="Playera algodón unisex"
+                          data-price="199.9"
+                          data-img="assets/img/imagen-14-playera.jpg">Agregar</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Juguetes -->
+          <div class="col-6 col-md-4" data-cat="juguetes" data-marca="Kids&Fun" data-precio="649" data-nombre="Bloques construcción 1k">
+            <div class="card h-100 shadow-sm">
+              <img src="assets/img/imagen-15-bloques.jpg" class="card-img-top" alt="Bloques construcción 1k">
+              <div class="card-body d-flex flex-column">
+                <h6 class="card-title mb-1">Bloques construcción 1k</h6>
+                <p class="text-secondary small mb-2">Marca: Kids&Fun</p>
+
+                <div class="reviews-section mb-2" data-id="p4" data-name="Bloques construcción 1k">
+                  <div class="small text-secondary mb-1 review-average">Sin reseñas</div>
+                  <form class="review-inline-form vstack gap-1">
+                    <div class="d-flex align-items-center gap-1 small">
+                      <label>Valoración:</label>
+                      <select class="form-select form-select-sm rating-select" style="width:auto">
+                        <option value="5">★★★★★ (5)</option>
+                        <option value="4">★★★★ (4)</option>
+                        <option value="3">★★★ (3)</option>
+                        <option value="2">★★ (2)</option>
+                        <option value="1">★ (1)</option>
+                      </select>
+                    </div>
+                    <input type="text" class="form-control form-control-sm name-input" placeholder="Tu nombre">
+                    <textarea class="form-control form-control-sm comment-input" rows="2" placeholder="Escribe tu reseña..."></textarea>
+                    <button type="submit" class="btn btn-sm btn-outline-primary">Guardar reseña</button>
+                  </form>
+                  <button class="btn btn-link p-0 mt-1 small text-decoration-none ver-reseñas">Ver historial</button>
+                  <div class="history mt-2 small"></div>
+                </div>
+
+                <div class="d-flex justify-content-between align-items-center mt-auto">
+                  <strong>$649.00</strong>
+                  <button class="btn btn-sm btn-primary add"
+                          data-id="p4"
+                          data-name="Bloques construcción 1k"
+                          data-price="649"
+                          data-img="assets/img/imagen-15-bloques.jpg">Agregar</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Libros -->
+          <div class="col-6 col-md-4" data-cat="libros" data-marca="LectorMx" data-precio="263.2" data-nombre='Libro "SQL para todos"'>
+            <div class="card h-100 shadow-sm">
+              <img src="assets/img/imagen-16-libro-sql.jpg" class="card-img-top" alt='Libro "SQL para todos"'>
+              <div class="card-body d-flex flex-column">
+                <h6 class="card-title mb-1">Libro "SQL para todos"</h6>
+                <p class="text-secondary small mb-2">Marca: LectorMx</p>
+
+                <div class="reviews-section mb-2" data-id="p5" data-name='Libro "SQL para todos"'>
+                  <div class="small text-secondary mb-1 review-average">Sin reseñas</div>
+                  <form class="review-inline-form vstack gap-1">
+                    <div class="d-flex align-items-center gap-1 small">
+                      <label>Valoración:</label>
+                      <select class="form-select form-select-sm rating-select" style="width:auto">
+                        <option value="5">★★★★★ (5)</option>
+                        <option value="4">★★★★ (4)</option>
+                        <option value="3">★★★ (3)</option>
+                        <option value="2">★★ (2)</option>
+                        <option value="1">★ (1)</option>
+                      </select>
+                    </div>
+                    <input type="text" class="form-control form-control-sm name-input" placeholder="Tu nombre">
+                    <textarea class="form-control form-control-sm comment-input" rows="2" placeholder="Escribe tu reseña..."></textarea>
+                    <button type="submit" class="btn btn-sm btn-outline-primary">Guardar reseña</button>
+                  </form>
+                  <button class="btn btn-link p-0 mt-1 small text-decoration-none ver-reseñas">Ver historial</button>
+                  <div class="history mt-2 small"></div>
+                </div>
+
+                <div class="d-flex justify-content-between align-items-center mt-auto">
+                  <strong>$263.20</strong>
+                  <button class="btn btn-sm btn-primary add"
+                          data-id="p5"
+                          data-name='Libro "SQL para todos"'
+                          data-price="263.2"
+                          data-img="assets/img/imagen-16-libro-sql.jpg">Agregar</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div><!-- /se cierra grid -->
+      </section>
+    </div><!-- /se cierra row -->
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="bg-dark text-white mt-5">
+    <div class="container py-4 text-center small">© 2025 TiendaSara.</div>
+  </footer>
+
+  <!-- Bootstrap JS (solo uno, al final) -->
+  <script src="assets/bootstrap-5.3.8-dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- JS: filtros + carrito + reseñas -->
+  <script>
+    const $ = (s,ctx=document)=>ctx.querySelector(s);
+    const $$ = (s,ctx=document)=>Array.from(ctx.querySelectorAll(s));
+
+    // --- Carrito mini contador
+    function updateMiniCount(){
+      const items = JSON.parse(localStorage.getItem('cartItems')||'[]');
+      const count = items.reduce((a,b)=>a+(b.qty||0),0);
+      const badge = $('#miniCount'); if(badge) badge.textContent = count;
+    }
+    updateMiniCount();
+
+    // --- Agregar al carrito
+    function addToCart(data){
+      const items = JSON.parse(localStorage.getItem('cartItems')||'[]');
+      const i = items.findIndex(x=>x.id===data.id);
+      if(i>=0) items[i].qty += 1;
+      else items.push({...data, qty:1});
+      localStorage.setItem('cartItems', JSON.stringify(items));
+      updateMiniCount();
+    }
+    $$('.add').forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        addToCart({
+          id: btn.dataset.id,
+          name: btn.dataset.name,
+          price: Number(btn.dataset.price),
+          img: btn.dataset.img
+        });
+      });
+    });
+
+    // --- Filtros / búsqueda / orden
+    const grid = $('#grid');
+    const cards = $$('.col-6.col-md-4', grid);
+
+    function aplicarFiltros(){
+      const cat = $('#fCategoria').value;
+      const marca = $('#fMarca').value;
+      const rawP = ($('#fPrecio').value || '').trim();
+      const pmax = rawP === '' ? Infinity : Number(rawP);
+      const q = ($('#q').value || '').trim().toLowerCase();
+
+      let visibles = 0;
+      cards.forEach(col=>{
+        const c = col.dataset.cat;
+        const m = col.dataset.marca;
+        const p = Number(col.dataset.precio);
+        const n = (col.dataset.nombre||'').toLowerCase();
+
+        const okCat = !cat || c===cat;
+        const okMarca = !marca || m===marca;
+        const okPrecio = p <= pmax;
+        const okText = !q || n.includes(q);
+
+        const show = okCat && okMarca && okPrecio && okText;
+        col.style.display = show ? '' : 'none';
+        if(show) visibles++;
+      });
+      $('#lblResultados').textContent = visibles ? `Mostrando ${visibles} producto(s)` : 'Sin resultados';
+    }
+
+    function ordenar(){
+      const val = $('#orden').value;
+      const visibles = cards.filter(c=>c.style.display!=='none');
+      visibles.sort((a,b)=>{
+        const pa = Number(a.dataset.precio), pb = Number(b.dataset.precio);
+        if(val==='precio-asc') return pa - pb;
+        if(val==='precio-desc') return pb - pa;
+        return 0;
+      });
+      visibles.forEach(c=>grid.appendChild(c));
+    }
+
+    ['fCategoria','fMarca','fPrecio'].forEach(id=>{
+      $('#'+id).addEventListener('input', ()=>{ aplicarFiltros(); ordenar(); });
+    });
+    $('#btnBuscar').addEventListener('click', ()=>{ aplicarFiltros(); ordenar(); });
+    $('#q').addEventListener('keydown', (e)=>{ if(e.key==='Enter'){ e.preventDefault(); aplicarFiltros(); ordenar(); } });
+    $('#orden').addEventListener('change', ordenar);
+    $('#btnLimpiar').addEventListener('click', ()=>{
+      $('#fCategoria').value=''; $('#fMarca').value=''; $('#fPrecio').value=''; $('#q').value='';
+      aplicarFiltros(); ordenar();
+    });
+
+    //---visualizacion del pre filtro utilizando Cat
+    const params = new URLSearchParams(location.search);
+    const catQS = params.get('cat');
+    if(catQS){ $('#fCategoria').value = catQS; }
+
+    // Inicial
+    aplicarFiltros(); ordenar();
+
+    // --- Reseñas (localStorage)
+    function loadReviews(pid){ return JSON.parse(localStorage.getItem('reviews_'+pid)||'[]'); }
+    function saveReviews(pid,list){ localStorage.setItem('reviews_'+pid, JSON.stringify(list)); }
+    function avgRating(list){ return list.length ? list.reduce((a,b)=>a+Number(b.rating||0),0)/list.length : 0; }
+    function starsHTML(n){
+      const full = Math.round(n); let s='';
+      for(let i=1;i<=5;i++) s += i<=full ? '★' : '☆';
+      return `<span class="stars-sm" aria-label="Valoración ${full} de 5">${s}</span>`;
+    }
+
+    // Inicialización reseñas por tarjeta
+    $$('.reviews-section').forEach(sec=>{
+      const pid = sec.dataset.id;
+      const avgEl = sec.querySelector('.review-average');
+      const hist = sec.querySelector('.history');
+      const form = sec.querySelector('.review-inline-form');
+      const nameInp = sec.querySelector('.name-input');
+      const ratingSel = sec.querySelector('.rating-select');
+      const commentInp = sec.querySelector('.comment-input');
+
+      function refreshHeader(){
+        const list = loadReviews(pid);
+        const avg = avgRating(list);
+        avgEl.innerHTML = list.length ? `${starsHTML(avg)} (${list.length})` : 'Sin reseñas';
+      }
+      refreshHeader();
+
+      form.addEventListener('submit', (e)=>{
+        e.preventDefault();
+        const name = (nameInp.value||'').trim();
+        const rating = Number(ratingSel.value||0);
+        const comment = (commentInp.value||'').trim();
+        if(!name || !comment) return;
+        const list = loadReviews(pid);
+        list.push({name, rating, comment, ts: Date.now()});
+        saveReviews(pid, list);
+        nameInp.value = '';
+        commentInp.value = '';
+        refreshHeader();
+      });
+
+      sec.querySelector('.ver-reseñas').addEventListener('click', ()=>{
+        const list = loadReviews(pid);
+        if(!list.length){
+          hist.innerHTML = '<div class="text-secondary">Aún no hay reseñas.</div>';
+          return;
+        }
+        hist.innerHTML = list
+          .sort((a,b)=>b.ts-a.ts)
+          .map(r=>{
+            const d = new Date(r.ts).toLocaleString();
+            return `
+              <div class="review-item">
+                <div class="d-flex justify-content-between">
+                  <strong>${r.name}</strong>
+                  <span class="stars">${starsHTML(r.rating)}</span>
+                </div>
+                <div class="small text-secondary">${d}</div>
+                <div>${r.comment.replace(/</g,'&lt;').replace(/>/g,'&gt;')}</div>
+              </div>`;
+          }).join('');
+      });
+    });
+  </script>
+</body>
+</html>
