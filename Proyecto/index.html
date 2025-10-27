@@ -1,0 +1,424 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>TiendaSara — Inicio</title>
+  <meta name="description" content="Tienda Sara: compra en línea Ropa, Electrónicos, Hogar, Juguetes y Libros.">
+
+  <!-- BOOTSTRAP LOCAL (la carpeta), es decir que está usando Bootstrap desde la computadora (modo local) -->
+  <link href="assets/bootstrap-5.3.8-dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Íconos de Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+
+  <!-- CSS PERSONAL -->
+  <link href="assets/css/style.css" rel="stylesheet">
+
+  <!-- Favicon -->
+  <link rel="icon" href="assets/img/favicon.png">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+</head>
+
+<body class="bg-light">
+
+  <!-- Barra superior -->
+  <div class="bg-dark text-white text-center py-1 small">
+    Envío gratis desde $899 MXN —
+    <a class="link-light text-decoration-underline" href="#" title="Ver políticas">Ver políticas</a>
+  </div>
+
+  <!-- HEADER -->
+  <header class="border-bottom bg-white">
+    <nav class="navbar navbar-expand-lg navbar-light bg-white container">
+      <!-- Logo -->
+      <a class="navbar-brand d-flex align-items-center gap-2" href="index.html">
+        <img src="assets/img/logo-tienda.png" alt="Logo Tienda Sara" width="36" height="36">
+        <span class="fw-bold">TiendaSara</span>
+      </a>
+
+      <!-- Botón hamburguesa -->
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMain"
+        aria-controls="navMain" aria-expanded="false" aria-label="Abrir menú">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <!-- Menú -->
+      <div class="collapse navbar-collapse" id="navMain">
+
+        <!-- Buscador centrado -->
+        <form class="d-flex mx-auto my-2 my-lg-0" role="search">
+          <input class="form-control me-2" type="search" placeholder="Buscar productos o categorías..." aria-label="Buscar">
+          <button class="btn btn-outline-primary" type="submit">
+            <span class="d-none d-lg-inline">Buscar</span>
+            <i class="bi bi-search d-lg-none"></i>
+          </button>
+        </form>
+
+        <!-- Enlaces -->
+        <ul class="navbar-nav ms-lg-3 align-items-lg-center">
+          <li class="nav-item"><a class="nav-link active" aria-current="page" href="index.html">Inicio</a></li>
+
+          <!-- Dropdown productos -->
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="productos.html" role="button" data-bs-toggle="dropdown" aria-expanded="false">Productos</a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="productos.html?cat=electronicos">Electrónicos</a></li>
+              <li><a class="dropdown-item" href="productos.html?cat=hogar">Hogar</a></li>
+              <li><a class="dropdown-item" href="productos.html?cat=ropa">Ropa</a></li>
+              <li><a class="dropdown-item" href="productos.html?cat=juguetes">Juguetes</a></li>
+              <li><a class="dropdown-item" href="productos.html?cat=libros">Libros</a></li>
+            </ul>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="carrito.html">
+              Carrito
+              <span class="badge text-bg-primary" id="miniCount">0</span>
+            </a>
+          </li>
+
+          <li class="nav-item"><a class="nav-link" href="#">Contacto</a></li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Botón fijo de oferta -->
+  <a href="#ofertas-dia" class="position-fixed top-50 start-0 translate-middle-y btn btn-danger rounded-end-0 shadow" style="z-index:1040;">
+    -20% HOY
+  </a>
+
+  <!-- CONTENIDO PRINCIPAL -->
+  <main>
+
+    <!-- HERO / CARRUSEL PRINCIPAL -->
+    <section class="container my-4">
+      <div id="heroPromos" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner rounded-4 overflow-hidden shadow">
+
+          <!-- Slide 1 -->
+          <div class="carousel-item active">
+            <img src="assets/img/imagen-1-camisa.jpg" class="d-block w-100" alt="Imagen 1 – Camisa en promoción (Ropa)">
+            <div class="carousel-caption d-none d-md-block">
+              <h5>Nueva colección de Ropa</h5>
+              <p>Estrena con descuento hoy mismo</p>
+              <a href="productos.html?cat=ropa" class="btn btn-primary">Comprar ahora</a>
+            </div>
+          </div>
+
+          <!-- Slide 2 -->
+          <div class="carousel-item">
+            <img src="assets/img/imagen-2-audifonos.jpg" class="d-block w-100" alt="Imagen 2 – Audífonos inalámbricos (Electrónicos)">
+            <div class="carousel-caption d-none d-md-block">
+              <h5>Audio sin cables</h5>
+              <p>Calidad Hi-Fi todo el día</p>
+              <a href="productos.html?cat=electronicos" class="btn btn-primary">Ver más</a>
+            </div>
+          </div>
+
+          <!-- Slide 3 -->
+          <div class="carousel-item">
+            <img src="assets/img/imagen-3-batidora.jpg" class="d-block w-100" alt="Imagen 3 – Batidora 500W (Hogar)">
+            <div class="carousel-caption d-none d-md-block">
+              <h5>Hogar práctico</h5>
+              <p>Electrodomésticos para tu cocina</p>
+              <a href="productos.html?cat=hogar" class="btn btn-primary">Ver más</a>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Controles -->
+        <button class="carousel-control-prev" type="button" data-bs-target="#heroPromos" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon"></span>
+          <span class="visually-hidden">Anterior</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#heroPromos" data-bs-slide="next">
+          <span class="carousel-control-next-icon"></span>
+          <span class="visually-hidden">Siguiente</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- TRIPLETA DE BENEFICIOS -->
+    <section class="container">
+      <div class="row g-3">
+        <div class="col-12 col-md-4">
+          <div class="p-3 bg-white rounded-4 shadow-sm h-100 d-flex align-items-center gap-3">
+            <img src="assets/img/imagen-4-envio.png" width="48" height="48" alt="Envíos a todo México">
+            <div>
+              <h6 class="mb-1">Envíos a todo México</h6>
+              <p class="mb-0 small text-secondary">Rastreo en tiempo real</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-md-4">
+          <div class="p-3 bg-white rounded-4 shadow-sm h-100 d-flex align-items-center gap-3">
+            <img src="assets/img/imagen-5-devolucion.png" width="48" height="48" alt="Devoluciones fáciles">
+            <div>
+              <h6 class="mb-1">Devoluciones fáciles</h6>
+              <p class="mb-0 small text-secondary">Hasta 30 días</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-md-4">
+          <div class="p-3 bg-white rounded-4 shadow-sm h-100 d-flex align-items-center gap-3">
+            <img src="assets/img/imagen-6-pago-seguro.png" width="48" height="48" alt="Pagos seguros">
+            <div>
+              <h6 class="mb-1">Pagos seguros</h6>
+              <p class="mb-0 small text-secondary">PCI/SSL</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== SOBRE TIENDASARA (Quiénes somos / Misión / Visión / Valores) ===== -->
+    <section class="container my-5">
+      <div class="bg-white rounded-4 shadow-sm p-4">
+        <div class="row g-4">
+          <div class="col-12 col-lg-5">
+            <h2 class="h4 mb-2">Quiénes somos</h2>
+            <p class="text-secondary mb-0">
+              En <strong>TiendaSara</strong> acercamos lo mejor en <em>Ropa</em>, <em>Electrónicos</em>, <em>Hogar</em>, <em>Juguetes</em> y <em>Libros</em>.
+              Cuidamos la experiencia de punta a punta: precios claros, envíos rápidos y atención cercana.
+            </p>
+          </div>
+
+          <div class="col-12 col-lg-7">
+            <div class="row g-3">
+              <div class="col-12 col-md-6">
+                <div class="p-3 border rounded-4 h-100">
+                  <h6 class="mb-2">Misión</h6>
+                  <p class="small text-secondary mb-0">Facilitar compras online confiables y accesibles, con entrega ágil y soporte humano.</p>
+                </div>
+              </div>
+              <div class="col-12 col-md-6">
+                <div class="p-3 border rounded-4 h-100">
+                  <h6 class="mb-2">Visión</h6>
+                  <p class="small text-secondary mb-0">Ser la tienda favorita en México por calidad, precio justo y servicio memorable.</p>
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="p-3 border rounded-4">
+                  <h6 class="mb-2">Valores</h6>
+                  <ul class="small text-secondary mb-0">
+                    <li><strong>Confianza:</strong> pagos seguros y políticas claras.</li>
+                    <li><strong>Rapidez:</strong> envíos con seguimiento en tiempo real.</li>
+                    <li><strong>Empatía:</strong> soporte cercano y resolutivo.</li>
+                    <li><strong>Calidad:</strong> productos seleccionados y garantía.</li>
+                  </ul>
+                </div>
+              </div>
+            </div><!-- /se cierra row -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ACCESOS POR CATEGORÍA -->
+    <section class="container my-5">
+      <h2 class="h4 mb-4 text-center">Compra por categoría</h2>
+      <div class="row g-3 justify-content-center">
+        <div class="col-6 col-md-4 col-lg-2">
+          <a class="text-decoration-none" href="productos.html?cat=electronicos">
+            <div class="bg-white rounded-4 shadow-sm p-3 text-center h-100">
+              <img src="assets/img/imagen-7-icon-electronicos.png" width="64" height="64" alt="Electrónicos">
+              <div class="mt-2 fw-semibold text-dark">Electrónicos</div>
+            </div>
+          </a>
+        </div>
+
+        <div class="col-6 col-md-4 col-lg-2">
+          <a class="text-decoration-none" href="productos.html?cat=hogar">
+            <div class="bg-white rounded-4 shadow-sm p-3 text-center h-100">
+              <img src="assets/img/imagen-8-icon-hogar.png" width="64" height="64" alt="Hogar">
+              <div class="mt-2 fw-semibold text-dark">Hogar</div>
+            </div>
+          </a>
+        </div>
+
+        <div class="col-6 col-md-4 col-lg-2">
+          <a class="text-decoration-none" href="productos.html?cat=ropa">
+            <div class="bg-white rounded-4 shadow-sm p-3 text-center h-100">
+              <img src="assets/img/imagen-9-icon-ropa.png" width="64" height="64" alt="Ropa">
+              <div class="mt-2 fw-semibold text-dark">Ropa</div>
+            </div>
+          </a>
+        </div>
+
+        <div class="col-6 col-md-4 col-lg-2">
+          <a class="text-decoration-none" href="productos.html?cat=juguetes">
+            <div class="bg-white rounded-4 shadow-sm p-3 text-center h-100">
+              <img src="assets/img/imagen-10-icon-juguetes.png" width="64" height="64" alt="Juguetes">
+              <div class="mt-2 fw-semibold text-dark">Juguetes</div>
+            </div>
+          </a>
+        </div>
+
+        <div class="col-6 col-md-4 col-lg-2">
+          <a class="text-decoration-none" href="productos.html?cat=libros">
+            <div class="bg-white rounded-4 shadow-sm p-3 text-center h-100">
+              <img src="assets/img/imagen-11-icon-libros.png" width="64" height="64" alt="Libros">
+              <div class="mt-2 fw-semibold text-dark">Libros</div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- PRODUCTOS DESTACADOS -->
+    <section class="container my-5">
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2 class="h4 m-0">Productos recomendados</h2>
+        <div>
+          <button class="btn btn-outline-secondary btn-sm me-2" data-bs-target="#carruselDestacados" data-bs-slide="prev"><i class="bi bi-chevron-left"></i></button>
+          <button class="btn btn-outline-secondary btn-sm" data-bs-target="#carruselDestacados" data-bs-slide="next"><i class="bi bi-chevron-right"></i></button>
+        </div>
+      </div>
+
+      <div id="carruselDestacados" class="carousel slide" data-bs-interval="5000">
+        <div class="carousel-inner">
+          <!-- Slide con 4 tarjetas -->
+          <div class="carousel-item active">
+            <div class="row g-3">
+              <!-- Tarjeta 1 -->
+              <div class="col-6 col-md-3">
+                <div class="card h-100 shadow-sm">
+                  <img src="assets/img/imagen-12-auriculares.jpg" class="card-img-top" alt="Auriculares inalámbricos">
+                  <div class="card-body">
+                    <h6 class="card-title mb-1">Auriculares inalámbricos</h6>
+                    <p class="text-secondary small mb-2">Marca: NovaTech</p>
+                    <div class="d-flex justify-content-between align-items-center">
+                      <strong>$899.00</strong>
+                      <button class="btn btn-sm btn-primary">Agregar</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- Tarjeta 2 -->
+              <div class="col-6 col-md-3">
+                <div class="card h-100 shadow-sm">
+                  <img src="assets/img/imagen-13-batidora.jpg" class="card-img-top" alt="Batidora 500 W">
+                  <div class="card-body">
+                    <h6 class="card-title mb-1">Batidora 500 W</h6>
+                    <p class="text-secondary small mb-2">Marca: CasaPlus</p>
+                    <div class="d-flex justify-content-between align-items-center">
+                      <strong>$749.50</strong>
+                      <button class="btn btn-sm btn-primary">Agregar</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- Tarjeta 3 -->
+              <div class="col-6 col-md-3">
+                <div class="card h-100 shadow-sm">
+                  <img src="assets/img/imagen-14-playera.jpg" class="card-img-top" alt="Playera algodón unisex">
+                  <div class="card-body">
+                    <h6 class="card-title mb-1">Playera algodón unisex</h6>
+                    <p class="text-secondary small mb-2">Marca: Acme</p>
+                    <div class="d-flex justify-content-between align-items-center">
+                      <strong>$199.90</strong>
+                      <button class="btn btn-sm btn-primary">Agregar</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- Tarjeta 4 -->
+              <div class="col-6 col-md-3">
+                <div class="card h-100 shadow-sm">
+                  <img src="assets/img/imagen-15-bloques.jpg" class="card-img-top" alt="Bloques de construcción 1k">
+                  <div class="card-body">
+                    <h6 class="card-title mb-1">Bloques construcción 1k</h6>
+                    <p class="text-secondary small mb-2">Marca: Kids&Fun</p>
+                    <div class="d-flex justify-content-between align-items-center">
+                      <strong>$649.00</strong>
+                      <button class="btn btn-sm btn-primary">Agregar</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div><!-- /cierre de carousel-item -->
+        </div>
+      </div>
+    </section>
+
+    <!-- OFERTAS DEL DÍA -->
+    <section id="ofertas-dia" class="container my-5">
+      <h2 class="h4 mb-3">Ofertas del día</h2>
+      <div class="row g-3">
+        <div class="col-12 col-md-6 col-lg-4">
+          <div class="card h-100 shadow-sm">
+            <img src="assets/img/imagen-16-libro-sql.jpg" class="card-img-top" alt="Libro SQL para todos">
+            <div class="card-body">
+              <div class="d-flex justify-content-between align-items-start">
+                <h6 class="card-title">Libro "SQL para todos"</h6>
+                <span class="badge text-bg-danger">-20%</span>
+              </div>
+              <div class="small text-secondary">Marca: LectorMx</div>
+              <div class="mt-2">
+                <span class="text-decoration-line-through text-secondary">$329.00</span>
+                <strong class="ms-2">$263.20</strong>
+              </div>
+              <button class="btn btn-primary w-100 mt-3">Agregar al carrito</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CINTA DE MARCAS -->
+    <section class="bg-white border-top border-bottom py-3">
+      <div class="container">
+        <div class="d-flex flex-wrap justify-content-center align-items-center gap-4">
+          <img src="assets/img/imagen-17-logo-acme.png" height="28" alt="Acme">
+          <img src="assets/img/imagen-18-logo-novatech.png" height="28" alt="NovaTech">
+          <img src="assets/img/imagen-19-logo-casaplus.png" height="28" alt="CasaPlus">
+          <img src="assets/img/imagen-20-logo-kidsfun.png" height="28" alt="Kids&Fun">
+          <img src="assets/img/imagen-21-logo-lectormx.png" height="28" alt="LectorMx">
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="bg-dark text-white mt-5">
+    <div class="container py-4">
+      <div class="row g-3">
+        <div class="col-12 col-md-4">
+          <h6 class="text-uppercase">Información</h6>
+          <ul class="list-unstyled small">
+            <li><a class="link-light" href="#">Quiénes somos</a></li>
+            <li><a class="link-light" href="#">Términos y condiciones</a></li>
+            <li><a class="link-light" href="#">Privacidad</a></li>
+          </ul>
+        </div>
+        <div class="col-12 col-md-4">
+          <h6 class="text-uppercase">Síguenos</h6>
+          <div class="d-flex gap-3">
+            <a class="link-light" href="#" aria-label="Facebook"><i class="bi bi-facebook fs-4"></i></a>
+            <a class="link-light" href="#" aria-label="Instagram"><i class="bi bi-instagram fs-4"></i></a>
+            <a class="link-light" href="#" aria-label="X"><i class="bi bi-twitter-x fs-4"></i></a>
+          </div>
+        </div>
+        <div class="col-12 col-md-4">
+          <h6 class="text-uppercase">Contacto</h6>
+          <p class="small mb-2">soporte@tiendasara.mx · +52 722 495 5040</p>
+          <form class="d-flex gap-2">
+            <input type="email" class="form-control form-control-sm" placeholder="Tu correo">
+            <button class="btn btn-sm btn-primary">Suscribirme</button>
+          </form>
+        </div>
+      </div>
+      <div class="text-center small text-secondary mt-3">© 2025 TiendaSara. Todos los derechos reservados.</div>
+    </div>
+  </footer>
+  <script>
+    document.getElementById('miniCount').textContent = localStorage.getItem('cartCount') || '0';
+  </script>
+</body>
+</html>
